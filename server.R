@@ -14,8 +14,15 @@ fig <- ggplot(mtcars, aes(wt, mpg)) +
 shinyServer(  
   function(input, output) {
     output$mpg <- renderText({
-      predict(lm, data.frame(cyl = input$cyl, wt = input$wt / 1000))
+      p <- data.frame(cyl = as.numeric(as.character(input$cyl)),
+                      wt = input$wt / 1000)
+      predict(lm, p)
     })
-    output$fig <- renderPlot(print(fig))
+    output$fig <- renderPlot({
+      p <- data.frame(cyl = as.numeric(as.character(input$cyl)),
+                      wt = input$wt / 1000)
+      p$mpg <- predict(lm, p)
+      print(fig + geom_point(data = p, size = 5, shape = 3, col = "blue"))
+    })
   }
 )
