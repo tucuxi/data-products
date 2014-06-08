@@ -3,7 +3,7 @@ shinyUI(
     headerPanel("Miles Per Gallon Predictor"),
     sidebarPanel(
       h3("Car Specification"),
-      radioButtons("cyl", "Cylinders", c("4" = 4, "6" = 6, "8" = 8)),
+      radioButtons("cyl", "Cylinders", c("4", "6", "8")),
       sliderInput("wt", "Weight (lbs)", 1500, 5000, 1500, step = 100)
     ),
     mainPanel(
